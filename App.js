@@ -1,9 +1,11 @@
+import "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import { Home } from "./src/screens";
 import { useFonts } from "expo-font";
 import { useCallback } from "react";
 import * as SplashScreen from "expo-splash-screen";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -23,15 +25,17 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container} onLayout={onLayoutRootView}>
-      <StatusBar
-        style="light"
-        backgroundColor="transparent"
-        translucent={true}
-        animated
-      />
-      <Home />
-    </View>
+    <GestureHandlerRootView style={{ flex: 1 }} onLayout={onLayoutRootView}>
+      <View style={styles.container}>
+        <StatusBar
+          style="light"
+          backgroundColor="transparent"
+          translucent={true}
+          animated
+        />
+        <Home />
+      </View>
+    </GestureHandlerRootView>
   );
 }
 
