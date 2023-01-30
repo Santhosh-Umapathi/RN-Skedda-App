@@ -18,7 +18,13 @@ const HomeScreen = (props: Props) => {
           borderBottomRightRadius: 20,
         }}
       />
-      <Text style={{ fontWeight: "bold", fontSize: 20, paddingLeft: 16 }}>
+      <Text
+        style={{
+          fontFamily: "SofiaPro-Semi-Bold",
+          fontSize: 20,
+          paddingLeft: 16,
+        }}
+      >
         Welcome <Text style={{ color: "#005FE6" }}>John</Text>,
       </Text>
 
@@ -28,6 +34,7 @@ const HomeScreen = (props: Props) => {
           fontSize: 14,
           paddingLeft: 16,
           color: "#555",
+          fontFamily: "SofiaPro-Light",
         }}
       >
         Are you ready to book your next space ?
