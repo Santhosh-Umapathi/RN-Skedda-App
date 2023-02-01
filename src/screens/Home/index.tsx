@@ -3,6 +3,8 @@ import React, { forwardRef, useRef } from "react";
 import hero from "../../../assets/hero.png";
 import { Artistic } from "../../components";
 import {
+  PanGestureHandler,
+  PanGestureHandlerGestureEvent,
   PinchGestureHandler,
   PinchGestureHandlerGestureEvent,
 } from "react-native-gesture-handler";
@@ -19,6 +21,9 @@ const AnimatedSvg = Animated.createAnimatedComponent(Artistic);
 
 const HomeScreen = (props: Props) => {
   const scale = useSharedValue(1);
+  const translateX = useSharedValue(0);
+  const translateY = useSharedValue(0);
+
   const svgRef = useRef(null);
 
   const pinGestureEvent =
@@ -29,9 +34,22 @@ const HomeScreen = (props: Props) => {
       },
     });
 
+  const panGestureEvent =
+    useAnimatedGestureHandler<PanGestureHandlerGestureEvent>({
+      onActive: (event) => {
+        translateX.value = event.translationX;
+        translateY.value = event.translationY;
+      },
+    });
+
   const animatedStyle = useAnimatedStyle(() => {
     return {
       transform: [{ scale: scale.value < 1 ? 1 : scale.value }],
+    };
+  });
+  const animatedPanStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ translateX: translateX.value }],
     };
   });
 
@@ -68,14 +86,23 @@ const HomeScreen = (props: Props) => {
       >
         Are you ready to book your next space ?
       </Text>
-
-      <View style={{ marginTop: 20 }}>
-        <PinchGestureHandler onGestureEvent={pinGestureEvent}>
-          <AnimatedView style={animatedStyle}>
-            <AnimatedSvg height={200} ref={svgRef} scale={1.6} />
-          </AnimatedView>
-        </PinchGestureHandler>
-      </View>
+      <PanGestureHandler onGestureEvent={panGestureEvent}>
+        <AnimatedView
+          style={[
+            // animatedPanStyle,
+            // animatedStyle,
+            { marginTop: 20, overflow: "hidden" },
+          ]}
+        >
+          <PinchGestureHandler onGestureEvent={pinGestureEvent}>
+            <AnimatedView
+              style={[animatedStyle, animatedPanStyle, { height: 200 }]}
+            >
+              <AnimatedSvg ref={svgRef} height={200} />
+            </AnimatedView>
+          </PinchGestureHandler>
+        </AnimatedView>
+      </PanGestureHandler>
     </View>
   );
 };
