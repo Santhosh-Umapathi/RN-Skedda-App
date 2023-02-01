@@ -25,7 +25,7 @@ export default function App() {
   }
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }} onLayout={onLayoutRootView}>
+    <GestureHandlerRootView style={styles.root} onLayout={onLayoutRootView}>
       <View style={styles.container}>
         <StatusBar
           style="light"
@@ -40,6 +40,7 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
+  root: { flex: 1 },
   container: {
     flex: 1,
     backgroundColor: "#fff",
