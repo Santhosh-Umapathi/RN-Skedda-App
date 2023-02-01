@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { memo } from "react";
 import Svg, {
   SvgProps,
   Defs,
@@ -9,7 +9,6 @@ import Svg, {
   ClipPath,
   Image,
 } from "react-native-svg";
-import { memo } from "react";
 
 const Artistic = React.forwardRef(
   (props: SvgProps, ref: React.LegacyRef<Svg> | undefined) => (
@@ -19,7 +18,6 @@ const Artistic = React.forwardRef(
       viewBox="0 0 1679.5 793.4"
       width={props.width || "100%"}
       height={props.height}
-      // preserveAspectRatio="xMinYMin slice"
       ref={ref}
       {...props}
     >
@@ -1798,5 +1796,5 @@ const Artistic = React.forwardRef(
     </Svg>
   )
 );
-const Memo = memo(Artistic);
-export default Memo;
+
+export default memo(Artistic);
