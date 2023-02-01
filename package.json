@@ -4,11 +4,14 @@
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
+    "clear": "expo start --clear",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web"
   },
   "dependencies": {
+    "@gorhom/bottom-sheet": "^4",
+    "@openspacelabs/react-native-zoomable-view": "^2.1.1",
     "@types/react": "~18.0.24",
     "@types/react-native": "~0.70.6",
     "expo": "~47.0.12",

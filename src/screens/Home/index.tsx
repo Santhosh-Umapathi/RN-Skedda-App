@@ -1,57 +1,21 @@
-import { View, Text, Image, StatusBar } from "react-native";
-import React, { forwardRef, useRef } from "react";
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  useWindowDimensions,
+} from "react-native";
+import React, { useRef } from "react";
 import hero from "../../../assets/hero.png";
 import { Artistic } from "../../components";
-import {
-  PanGestureHandler,
-  PanGestureHandlerGestureEvent,
-  PinchGestureHandler,
-  PinchGestureHandlerGestureEvent,
-} from "react-native-gesture-handler";
-import Animated, {
-  useAnimatedGestureHandler,
-  useAnimatedStyle,
-  useSharedValue,
-} from "react-native-reanimated";
-
-type Props = {};
-
-const AnimatedView = Animated.createAnimatedComponent(View);
-const AnimatedSvg = Animated.createAnimatedComponent(Artistic);
+import { ReactNativeZoomableView } from "@openspacelabs/react-native-zoomable-view";
 
 const HomeScreen = (props: Props) => {
-  const scale = useSharedValue(1);
-  const translateX = useSharedValue(0);
-  const translateY = useSharedValue(0);
-
   const svgRef = useRef(null);
 
-  const pinGestureEvent =
-    useAnimatedGestureHandler<PinchGestureHandlerGestureEvent>({
-      onActive: (event) => {
-        console.log("onActive", event);
-        scale.value = event.scale;
-      },
-    });
-
-  const panGestureEvent =
-    useAnimatedGestureHandler<PanGestureHandlerGestureEvent>({
-      onActive: (event) => {
-        translateX.value = event.translationX;
-        translateY.value = event.translationY;
-      },
-    });
-
-  const animatedStyle = useAnimatedStyle(() => {
-    return {
-      transform: [{ scale: scale.value < 1 ? 1 : scale.value }],
-    };
-  });
-  const animatedPanStyle = useAnimatedStyle(() => {
-    return {
-      transform: [{ translateX: translateX.value }],
-    };
-  });
+  const deskPressHandler = () => {
+    console.log("Desk Pressed");
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>
@@ -86,23 +50,49 @@ const HomeScreen = (props: Props) => {
       >
         Are you ready to book your next space ?
       </Text>
-      <PanGestureHandler onGestureEvent={panGestureEvent}>
-        <AnimatedView
-          style={[
-            // animatedPanStyle,
-            // animatedStyle,
-            { marginTop: 20, overflow: "hidden" },
-          ]}
+
+      <View
+        style={{
+          marginTop: 20,
+          height: 200,
+          width: "100%",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <ReactNativeZoomableView
+          maxZoom={20}
+          minZoom={1}
+          zoomStep={0.5}
+          initialZoom={1}
+          bindToBorders={true}
+          style={{ width: 500 }}
         >
-          <PinchGestureHandler onGestureEvent={pinGestureEvent}>
-            <AnimatedView
-              style={[animatedStyle, animatedPanStyle, { height: 200 }]}
-            >
-              <AnimatedSvg ref={svgRef} height={200} />
-            </AnimatedView>
-          </PinchGestureHandler>
-        </AnimatedView>
-      </PanGestureHandler>
+          <Artistic ref={svgRef} height={200} width={350} />
+
+          <TouchableOpacity
+            onPress={deskPressHandler}
+            style={{
+              position: "absolute",
+              right: 350 - 180.5,
+              top: 200 - 78.5,
+              width: 9,
+              height: 10,
+              justifyContent: "center",
+            }}
+          >
+            <View
+              style={{
+                backgroundColor: "#50bf8e",
+                width: 5,
+                height: 5,
+                borderRadius: 5 / 2,
+                marginLeft: 0.9,
+              }}
+            />
+          </TouchableOpacity>
+        </ReactNativeZoomableView>
+      </View>
     </View>
   );
 };
