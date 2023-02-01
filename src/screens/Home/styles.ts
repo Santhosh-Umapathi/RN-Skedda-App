@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 import { MAP_HEIGHT, MAP_WIDTH } from "../../constants";
+import { Colors } from "../../theme";
 
 const styles = StyleSheet.create({
   image: {
@@ -46,6 +47,7 @@ const styles = StyleSheet.create({
     width: "100%",
     textAlign: "center",
   },
+  container: { flex: 1, backgroundColor: Colors.white },
 });
 
 export default styles;

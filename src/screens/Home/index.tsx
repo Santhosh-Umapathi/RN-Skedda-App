@@ -1,30 +1,25 @@
 import { View, Image, TouchableOpacity } from "react-native";
-import React, { useRef, createRef, useState } from "react";
+import React from "react";
 import hero from "../../../assets/hero.png";
 import { Text, BottomSheet, Artistic, Booking, Marker } from "../../components";
 import { ReactNativeZoomableView } from "@openspacelabs/react-native-zoomable-view";
 import styles from "./styles";
 import { MAP_HEIGHT, MAP_WIDTH } from "../../constants";
-import GBottomSheet from "@gorhom/bottom-sheet";
+import homeController from "./controller";
 
 const HomeScreen = () => {
-  const svgRef = useRef(null);
-  const zoomableViewRef = createRef<ReactNativeZoomableView>();
-  const bottomSheetRef = useRef<GBottomSheet>(null);
-
-  const [booked, setBooked] = useState<boolean>(false);
-
-  const deskPressHandler = () => bottomSheetRef.current?.expand();
-
-  const bookingHandler = async () => {
-    bottomSheetRef.current?.close();
-    setBooked(true);
-  };
-
-  const cancelHandler = () => bottomSheetRef.current?.close();
+  const {
+    booked,
+    bookingHandler,
+    cancelHandler,
+    deskPressHandler,
+    svgRef,
+    zoomableViewRef,
+    bottomSheetRef,
+  } = homeController();
 
   return (
-    <View style={{ flex: 1, backgroundColor: "white" }}>
+    <View style={styles.container}>
       <Image source={hero} resizeMode="cover" style={styles.image} />
       <Text font="Semi-Bold" style={styles.welcome}>
         Welcome{" "}
