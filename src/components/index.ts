@@ -1,8 +1,6 @@
 import Booking from "./Booking";
 import BottomSheet from "./BottomSheet";
-import Book from "./Buttons/Book";
-import Cancel from "./Buttons/Cancel";
-
+import { Book, Cancel } from "./Buttons";
 import Marker from "./Marker";
 import Text from "./Text";
 
