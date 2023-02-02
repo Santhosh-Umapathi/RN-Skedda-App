@@ -1,32 +1,19 @@
-import {
-  View,
-  Image,
-  TouchableOpacity,
-  GestureResponderEvent,
-  PanResponderGestureState,
-} from "react-native";
+import { View, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import hero from "../../../assets/hero.png";
 import { Text, BottomSheet, Artistic, Booking, Marker } from "../../components";
-import {
-  ReactNativeZoomableView,
-  ZoomableViewEvent,
-} from "@openspacelabs/react-native-zoomable-view";
+import { ReactNativeZoomableView } from "@openspacelabs/react-native-zoomable-view";
 import styles from "./styles";
-import { MAP_HEIGHT, MAP_WIDTH } from "../../constants";
 import homeController from "./controller";
-import Animated, {
-  useAnimatedProps,
-  useAnimatedStyle,
-  useSharedValue,
-  withTiming,
-} from "react-native-reanimated";
+import Animated from "react-native-reanimated";
 
+//Creating Animated Components
 const AnimatedSvg = Animated.createAnimatedComponent(Artistic);
 const AnimatedView = Animated.createAnimatedComponent(View);
 const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
 
 const HomeScreen = () => {
+  // This controller hook handles all the UI Logics
   const {
     booked,
     bookingHandler,
@@ -35,34 +22,13 @@ const HomeScreen = () => {
     svgRef,
     zoomableViewRef,
     bottomSheetRef,
+    onZoomBefore,
+    onDoubleTapBefore,
+    onTransform,
+    scale,
+    animatedProps,
+    animatedStyle,
   } = homeController();
-
-  const scale = useSharedValue({
-    offsetX: -70,
-    offsetY: 165,
-    originalWidth: 350,
-    originalHeight: 200,
-    originalPageX: -70,
-    originalPageY: 165,
-    zoomLevel: 1.0,
-  });
-
-  const animatedStyle = useAnimatedStyle(() => {
-    return {
-      transform: [
-        {
-          scale: scale.value.zoomLevel,
-        },
-      ],
-    };
-  });
-
-  const animatedProps = useAnimatedProps(() => {
-    return {
-      height: scale.value.originalHeight * scale.value.zoomLevel,
-      width: scale.value.originalWidth * scale.value.zoomLevel,
-    };
-  });
 
   return (
     <View style={styles.container}>
@@ -78,7 +44,7 @@ const HomeScreen = () => {
       <Text color="grey" font="Light" style={styles.subText}>
         Are you ready to book your next space ?
       </Text>
-
+      {/* Magic Happens Here */}
       <View style={styles.map}>
         <ReactNativeZoomableView
           maxZoom={20}
@@ -88,31 +54,16 @@ const HomeScreen = () => {
           bindToBorders={false}
           style={styles.zoomableView}
           ref={zoomableViewRef}
-          onZoomAfter={(
-            event: GestureResponderEvent,
-            gestureState: PanResponderGestureState,
-            zoomableViewEventObject: ZoomableViewEvent
-          ) => {
-            console.log("onZoomAfter", zoomableViewEventObject);
-            scale.value = zoomableViewEventObject;
-          }}
+          onZoomBefore={onZoomBefore}
+          onDoubleTapBefore={onDoubleTapBefore}
+          onTransform={onTransform}
         >
           <AnimatedSvg ref={svgRef} animatedProps={animatedProps} />
 
-          <AnimatedView
-            style={[
-              animatedStyle,
-              {
-                // backgroundColor: "pink",
-                width: MAP_WIDTH,
-                height: MAP_HEIGHT,
-                position: "absolute",
-              },
-            ]}
-          >
+          <AnimatedView style={[animatedStyle, styles.mapWrapper]}>
             <AnimatedTouchable
               onPress={deskPressHandler}
-              style={[styles.markerContainer]}
+              style={styles.markerContainer}
             >
               <Marker style={styles.marker} />
             </AnimatedTouchable>

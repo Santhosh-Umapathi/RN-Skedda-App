@@ -25,8 +25,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   zoomableView: {
-    width: 350,
-    backgroundColor: "yellow",
+    width: MAP_WIDTH,
   },
   markerContainer: {
     position: "absolute",
@@ -35,7 +34,6 @@ const styles = StyleSheet.create({
     width: 9,
     height: 10,
     justifyContent: "center",
-    backgroundColor: "pink",
   },
   marker: {
     width: 5,
@@ -51,6 +49,11 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   container: { flex: 1, backgroundColor: Colors.white },
+  mapWrapper: {
+    width: MAP_WIDTH,
+    height: MAP_HEIGHT,
+    position: "absolute",
+  },
 });
 
 export default styles;
