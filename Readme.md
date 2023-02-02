@@ -24,7 +24,7 @@ yarn && yarn start
 
 ## Project Features
 
-- SVG Workspace map - Zoomable, Tap to Zoom
+- SVG Workspace map - Zoomable, Tap to Zoom, No Loss in Quality
 - SVG Workspace map - Pan Gesture
 - Bottom Sheet to book the selected space.
 
