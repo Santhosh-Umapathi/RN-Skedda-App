@@ -1,6 +1,6 @@
 ![image](https://images.g2crowd.com/uploads/optimized_product_banner/image/2100/dbd4036a415b6fc1bcb2bb878120ac61.jpg)
 
-_Skedda, a project made with React Native & Typescript_
+_Skedda, a project made with Expo(React Native) & Typescript_
 
 > Author: Santhosh Umapathi
 
