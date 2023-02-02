@@ -21,18 +21,21 @@ const styles = StyleSheet.create({
   map: {
     marginTop: 20,
     height: 200,
-    width: "100%",
     justifyContent: "center",
     alignItems: "center",
   },
-  zoomableView: { width: 500 },
+  zoomableView: {
+    width: 350,
+    backgroundColor: "yellow",
+  },
   markerContainer: {
     position: "absolute",
-    right: MAP_WIDTH - 180.5,
+    right: MAP_WIDTH - 255.5,
     top: MAP_HEIGHT - 78.5,
     width: 9,
     height: 10,
     justifyContent: "center",
+    backgroundColor: "pink",
   },
   marker: {
     width: 5,
